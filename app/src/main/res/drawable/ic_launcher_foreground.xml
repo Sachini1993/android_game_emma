@@ -1,30 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:endX="85.84757"
-                android:endY="92.4963"
-                android:startX="42.9492"
-                android:startY="49.59793"
-                android:type="linear">
-                <item
-                    android:color="#44000000"
-                    android:offset="0.0" />
-                <item
-                    android:color="#00000000"
-                    android:offset="1.0" />
-            </gradient>
-        </aapt:attr>
-    </path>
+
+    <!-- Brain left half -->
     <path
         android:fillColor="#FFFFFF"
-        android:fillType="nonZero"
-        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
-        android:strokeWidth="1"
-        android:strokeColor="#00000000" />
+        android:pathData="M54,28
+            C54,28 42,28 38,34
+            C34,40 34,44 36,48
+            C32,50 30,54 32,58
+            C30,60 30,65 34,68
+            C34,72 36,76 42,78
+            L54,78
+            L54,28Z" />
+
+    <!-- Brain right half -->
+    <path
+        android:fillColor="#EEE8FF"
+        android:pathData="M54,28
+            C54,28 66,28 70,34
+            C74,40 74,44 72,48
+            C76,50 78,54 76,58
+            C78,60 78,65 74,68
+            C74,72 72,76 66,78
+            L54,78
+            L54,28Z" />
+
+    <!-- Brain center line -->
+    <path
+        android:strokeColor="#534AB7"
+        android:strokeWidth="2"
+        android:fillColor="#00000000"
+        android:pathData="M54,30 L54,78" />
+
+    <!-- Left brain folds -->
+    <path
+        android:strokeColor="#534AB7"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:pathData="M42,40 Q38,46 42,52" />
+    <path
+        android:strokeColor="#534AB7"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:pathData="M40,58 Q36,63 40,68" />
+
+    <!-- Right brain folds -->
+    <path
+        android:strokeColor="#534AB7"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:pathData="M66,40 Q70,46 66,52" />
+    <path
+        android:strokeColor="#534AB7"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:pathData="M68,58 Q72,63 68,68" />
+
+    <!-- Star sparkle top -->
+    <path
+        android:fillColor="#D85A30"
+        android:pathData="M54,18 L56,23 L61,23 L57,26 L59,31 L54,28 L49,31 L51,26 L47,23 L52,23 Z" />
+
 </vector>

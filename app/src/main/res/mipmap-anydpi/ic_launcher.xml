@@ -1,1 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?><bitmap xmlns:android="http://schemas.android.com/apk/res/android" android:src="@mipmap/ic_launcher"/>
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Purple background -->
+    <path android:fillColor="#534AB7" android:pathData="M0,0h108v108h-108z"/>
+    <!-- Brain left half -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M54,25 C54,25 40,25 35,33 C30,41 31,47 34,51 C29,54 28,60 31,64 C29,67 30,73 35,76 C36,80 39,84 46,86 L54,86 L54,25Z"/>
+    <!-- Brain right half -->
+    <path android:fillColor="#EEE8FF"
+        android:pathData="M54,25 C54,25 68,25 73,33 C78,41 77,47 74,51 C79,54 80,60 77,64 C79,67 78,73 73,76 C72,80 69,84 62,86 L54,86 L54,25Z"/>
+    <!-- Center line -->
+    <path android:strokeColor="#534AB7" android:strokeWidth="2.5" android:fillColor="#00000000"
+        android:pathData="M54,27 L54,86"/>
+    <!-- Left folds -->
+    <path android:strokeColor="#7B72D9" android:strokeWidth="2" android:fillColor="#00000000"
+        android:pathData="M43,38 Q37,47 43,55"/>
+    <path android:strokeColor="#7B72D9" android:strokeWidth="2" android:fillColor="#00000000"
+        android:pathData="M40,62 Q35,69 40,75"/>
+    <!-- Right folds -->
+    <path android:strokeColor="#9B94E8" android:strokeWidth="2" android:fillColor="#00000000"
+        android:pathData="M65,38 Q71,47 65,55"/>
+    <path android:strokeColor="#9B94E8" android:strokeWidth="2" android:fillColor="#00000000"
+        android:pathData="M68,62 Q73,69 68,75"/>
+    <!-- Orange star -->
+    <path android:fillColor="#D85A30"
+        android:pathData="M54,12 L57,20 L65,20 L59,25 L61,33 L54,28 L47,33 L49,25 L43,20 L51,20 Z"/>
+</vector>

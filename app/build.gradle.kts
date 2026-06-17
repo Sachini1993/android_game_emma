@@ -41,6 +41,12 @@ android {
 
 dependencies {
 
+    implementation("com.aldebaran:qisdk:1.7.5")
+    implementation("com.aldebaran:qisdk-design:1.7.5")
+
+    // Force newer vectordrawable versions to resolve duplicate namespace conflict
+    implementation("androidx.vectordrawable:vectordrawable:1.2.0")
+    implementation("androidx.vectordrawable:vectordrawable-animated:1.2.0")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)

@@ -1,0 +1,114 @@
+{
+  "version": "0.1",
+  "box": {
+    "uuid": "celebrate-win-01",
+    "name": "celebrate",
+    "script": "",
+    "bitmap": "",
+    "label": "",
+    "tooltip": "Win celebration — arms raise, head nods excitedly",
+    "enabled": true,
+    "inputs": [{"name": "onStart", "nature": 2, "type": 0, "stm_value_name": "", "inner": false}],
+    "outputs": [{"name": "onStopped", "nature": 1, "type": 0, "stm_value_name": "", "inner": false}],
+    "parameters": []
+  },
+  "timeline": {
+    "fps": 25,
+    "start_frame": 1,
+    "end_frame": 100,
+    "enable_physical_layer": true,
+    "behavior_layers": [],
+    "actuator_list": [
+      {
+        "name": "HeadPitch",
+        "keys": [
+          {"frame": 1,   "value":  0.0,  "dho": 0.0, "dhi": 0.0},
+          {"frame": 15,  "value": -0.35, "dho": 0.0, "dhi": 0.0},
+          {"frame": 30,  "value":  0.1,  "dho": 0.0, "dhi": 0.0},
+          {"frame": 45,  "value": -0.35, "dho": 0.0, "dhi": 0.0},
+          {"frame": 60,  "value":  0.1,  "dho": 0.0, "dhi": 0.0},
+          {"frame": 75,  "value": -0.2,  "dho": 0.0, "dhi": 0.0},
+          {"frame": 90,  "value":  0.0,  "dho": 0.0, "dhi": 0.0},
+          {"frame": 100, "value":  0.0,  "dho": 0.0, "dhi": 0.0}
+        ]
+      },
+      {
+        "name": "HeadYaw",
+        "keys": [
+          {"frame": 1,   "value":  0.0,  "dho": 0.0, "dhi": 0.0},
+          {"frame": 25,  "value":  0.35, "dho": 0.0, "dhi": 0.0},
+          {"frame": 50,  "value": -0.35, "dho": 0.0, "dhi": 0.0},
+          {"frame": 75,  "value":  0.2,  "dho": 0.0, "dhi": 0.0},
+          {"frame": 90,  "value":  0.0,  "dho": 0.0, "dhi": 0.0},
+          {"frame": 100, "value":  0.0,  "dho": 0.0, "dhi": 0.0}
+        ]
+      },
+      {
+        "name": "LShoulderPitch",
+        "keys": [
+          {"frame": 1,   "value":  1.50, "dho": 0.0, "dhi": 0.0},
+          {"frame": 20,  "value": -0.50, "dho": 0.0, "dhi": 0.0},
+          {"frame": 40,  "value": -0.20, "dho": 0.0, "dhi": 0.0},
+          {"frame": 55,  "value": -0.60, "dho": 0.0, "dhi": 0.0},
+          {"frame": 70,  "value": -0.20, "dho": 0.0, "dhi": 0.0},
+          {"frame": 85,  "value":  1.50, "dho": 0.0, "dhi": 0.0},
+          {"frame": 100, "value":  1.50, "dho": 0.0, "dhi": 0.0}
+        ]
+      },
+      {
+        "name": "RShoulderPitch",
+        "keys": [
+          {"frame": 1,   "value":  1.50, "dho": 0.0, "dhi": 0.0},
+          {"frame": 20,  "value": -0.50, "dho": 0.0, "dhi": 0.0},
+          {"frame": 40,  "value": -0.20, "dho": 0.0, "dhi": 0.0},
+          {"frame": 55,  "value": -0.60, "dho": 0.0, "dhi": 0.0},
+          {"frame": 70,  "value": -0.20, "dho": 0.0, "dhi": 0.0},
+          {"frame": 85,  "value":  1.50, "dho": 0.0, "dhi": 0.0},
+          {"frame": 100, "value":  1.50, "dho": 0.0, "dhi": 0.0}
+        ]
+      },
+      {
+        "name": "LShoulderRoll",
+        "keys": [
+          {"frame": 1,   "value":  0.10, "dho": 0.0, "dhi": 0.0},
+          {"frame": 20,  "value":  0.90, "dho": 0.0, "dhi": 0.0},
+          {"frame": 40,  "value":  0.30, "dho": 0.0, "dhi": 0.0},
+          {"frame": 55,  "value":  0.90, "dho": 0.0, "dhi": 0.0},
+          {"frame": 70,  "value":  0.30, "dho": 0.0, "dhi": 0.0},
+          {"frame": 85,  "value":  0.10, "dho": 0.0, "dhi": 0.0},
+          {"frame": 100, "value":  0.10, "dho": 0.0, "dhi": 0.0}
+        ]
+      },
+      {
+        "name": "RShoulderRoll",
+        "keys": [
+          {"frame": 1,   "value": -0.10, "dho": 0.0, "dhi": 0.0},
+          {"frame": 20,  "value": -0.90, "dho": 0.0, "dhi": 0.0},
+          {"frame": 40,  "value": -0.30, "dho": 0.0, "dhi": 0.0},
+          {"frame": 55,  "value": -0.90, "dho": 0.0, "dhi": 0.0},
+          {"frame": 70,  "value": -0.30, "dho": 0.0, "dhi": 0.0},
+          {"frame": 85,  "value": -0.10, "dho": 0.0, "dhi": 0.0},
+          {"frame": 100, "value": -0.10, "dho": 0.0, "dhi": 0.0}
+        ]
+      },
+      {
+        "name": "LElbowRoll",
+        "keys": [
+          {"frame": 1,   "value": -0.50, "dho": 0.0, "dhi": 0.0},
+          {"frame": 20,  "value": -0.10, "dho": 0.0, "dhi": 0.0},
+          {"frame": 85,  "value": -0.50, "dho": 0.0, "dhi": 0.0},
+          {"frame": 100, "value": -0.50, "dho": 0.0, "dhi": 0.0}
+        ]
+      },
+      {
+        "name": "RElbowRoll",
+        "keys": [
+          {"frame": 1,   "value":  0.50, "dho": 0.0, "dhi": 0.0},
+          {"frame": 20,  "value":  0.10, "dho": 0.0, "dhi": 0.0},
+          {"frame": 85,  "value":  0.50, "dho": 0.0, "dhi": 0.0},
+          {"frame": 100, "value":  0.50, "dho": 0.0, "dhi": 0.0}
+        ]
+      }
+    ]
+  }
+}
