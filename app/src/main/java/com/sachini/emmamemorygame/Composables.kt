@@ -353,9 +353,9 @@ fun BreakScreen(activity: BreakActivity, onBreakEnd: () -> Unit, onQuit: () -> U
                 horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("🤖", fontSize = 28.sp)
                 Column {
-                    Text("Pepper's Fun Break!", fontSize = 18.sp,
+                    Text(t("Pepper's Fun Break!","Pepperin hauskatauko!"), fontSize = 18.sp,
                         color = activity.color, fontWeight = FontWeight.Bold)
-                    Text("Take a break and move your body!", fontSize = 12.sp,
+                    Text(t("Take a break and move your body!","Pidä tauko ja liiku!"), fontSize = 12.sp,
                         color = activity.color.copy(alpha = 0.7f))
                 }
             }
@@ -397,7 +397,7 @@ fun BreakScreen(activity: BreakActivity, onBreakEnd: () -> Unit, onQuit: () -> U
                 .padding(10.dp)) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxWidth()) {
-                    Text("Break ends in  $minutes:${seconds.toString().padStart(2, '0')}",
+                    Text(t("Break ends in","Tauko päättyy") + "  $minutes:${seconds.toString().padStart(2, '0')}",
                         fontSize = 13.sp, color = activity.color)
                     Spacer(Modifier.height(4.dp))
                     Box(modifier = Modifier.fillMaxWidth().height(6.dp)
@@ -408,7 +408,7 @@ fun BreakScreen(activity: BreakActivity, onBreakEnd: () -> Unit, onQuit: () -> U
                 }
             }
 
-            Text("Game resumes automatically after the break ✨",
+            Text(t("Game resumes automatically after the break ✨","Peli jatkuu automaattisesti tauon jälkeen ✨"),
                 fontSize = 11.sp, color = activity.color.copy(alpha = 0.6f))
 
             val breakContext = LocalContext.current
@@ -424,7 +424,7 @@ fun BreakScreen(activity: BreakActivity, onBreakEnd: () -> Unit, onQuit: () -> U
                         .padding(vertical = 14.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("▶  Back to Game", fontSize = 15.sp, color = Color.White,
+                    Text(t("▶  Back to Game","▶  Takaisin peliin"), fontSize = 15.sp, color = Color.White,
                         fontWeight = FontWeight.Bold)
                 }
 
@@ -440,7 +440,7 @@ fun BreakScreen(activity: BreakActivity, onBreakEnd: () -> Unit, onQuit: () -> U
                         .padding(vertical = 14.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("❌  Quit Game", fontSize = 15.sp, color = Color(0xFFD32F2F),
+                    Text(t("❌  Quit Game","❌  Lopeta peli"), fontSize = 15.sp, color = Color(0xFFD32F2F),
                         fontWeight = FontWeight.Bold)
                 }
             }
@@ -481,7 +481,7 @@ fun SettingsPanel(onDismiss: () -> Unit) {
                 Row(modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically) {
-                    Text("⚙️ Settings", fontSize = 20.sp, color = AppColors.purple,
+                    Text(t("⚙️ Settings","⚙️ Asetukset"), fontSize = 20.sp, color = AppColors.purple,
                         fontWeight = FontWeight.Bold)
                     Text("✕", fontSize = 18.sp, color = Color(0xFF888888),
                         modifier = Modifier.clickable { onDismiss() })
@@ -491,7 +491,7 @@ fun SettingsPanel(onDismiss: () -> Unit) {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Row(modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text("🎵 Music Volume", fontSize = 14.sp, color = Color(0xFF444444))
+                        Text(t("🎵 Music Volume","🎵 Musiikin äänenvoimakkuus"), fontSize = 14.sp, color = Color(0xFF444444))
                         Text("${(musicVol * 100).toInt()}%", fontSize = 13.sp, color = AppColors.purple)
                     }
                     Slider(
@@ -514,7 +514,7 @@ fun SettingsPanel(onDismiss: () -> Unit) {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Row(modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text("🔊 Voice Volume", fontSize = 14.sp, color = Color(0xFF444444))
+                        Text(t("🔊 Voice Volume","🔊 Puheen äänenvoimakkuus"), fontSize = 14.sp, color = Color(0xFF444444))
                         Text("${(voiceVol * 100).toInt()}%", fontSize = 13.sp, color = AppColors.orange)
                     }
                     Slider(
@@ -545,7 +545,7 @@ fun SettingsPanel(onDismiss: () -> Unit) {
                         .padding(vertical = 14.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("❌  Quit Game", fontSize = 15.sp, color = Color(0xFFD32F2F),
+                    Text(t("❌  Quit Game","❌  Lopeta peli"), fontSize = 15.sp, color = Color(0xFFD32F2F),
                         fontWeight = FontWeight.Bold)
                 }
             }

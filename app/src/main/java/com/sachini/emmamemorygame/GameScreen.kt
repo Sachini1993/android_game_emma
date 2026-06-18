@@ -115,7 +115,7 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
         if (!SoundManager.isMuted) SoundManager.startBackgroundMusic()
         player.themesPlayed = player.themesPlayed + t.name
         pepperSpeak(t("Let's play! ${d.label} difficulty with ${t.name} theme. Good luck ${player.name}!",
-            "Pelataan! ${d.label} vaikeustaso ${t.name}-teemalla. Onnea ${player.name}!"))
+            "Pelataan! ${if (d == Difficulty.EASY) "Helppo" else if (d == Difficulty.MEDIUM) "Keski" else "Vaikea"} vaikeustaso ${t.name}-teemalla. Onnea ${player.name}!"))
     }
 
     Box(modifier = Modifier.fillMaxSize().background(AppColors.background)) {
@@ -136,7 +136,7 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                             Text("👤 ${player.name}", fontSize = 14.sp, color = Color.White)
                             Text("Lv.${curLevel.level} ${curLevel.title}",
                                 fontSize = 11.sp, color = Color(0xFFCECBF6))
-                            Text("💎 ${player.gemCount()}/${ALL_GEMS.size} gems",
+                            Text("💎 ${player.gemCount()}/${ALL_GEMS.size} ${t("gems","jalokiveä")}",
                                 fontSize = 10.sp, color = Color(0xFFAFA9EC))
                         }
                         Row(horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -150,7 +150,7 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                                     if (isMuted) SoundManager.stopBackgroundMusic()
                                     else if (gameStarted && !gameWon && !gameLost) SoundManager.startBackgroundMusic()
                                 })
-                            Text("Change\nplayer", fontSize = 10.sp, color = Color(0xFFAFA9EC),
+                            Text(t("Change\nplayer","Vaihda\npelaaja"), fontSize = 10.sp, color = Color(0xFFAFA9EC),
                                 modifier = Modifier.clickable { onChangePlayer() })
                         }
                     }
@@ -167,7 +167,7 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                         .padding(vertical = 12.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("❌  Quit Game", fontSize = 15.sp, color = Color(0xFFD32F2F),
+                    Text(t("❌  Quit Game","❌  Lopeta peli"), fontSize = 15.sp, color = Color(0xFFD32F2F),
                         fontWeight = FontWeight.Bold)
                 }
 
@@ -187,7 +187,7 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                                 .background(AppColors.xpFill, RoundedCornerShape(4.dp)))
                         }
                         if (nxtLevel != null)
-                            Text("${xpToNextLevel(displayXP)} XP to ${nxtLevel.title}",
+                            Text(t("${xpToNextLevel(displayXP)} XP to ${nxtLevel.title}","${xpToNextLevel(displayXP)} XP tasolle ${nxtLevel.title}"),
                                 fontSize = 10.sp, color = AppColors.xpSub,
                                 modifier = Modifier.padding(top = 2.dp))
                     }
@@ -199,9 +199,9 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                         .clickable { showLevelUp = false }) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier.fillMaxWidth()) {
-                            Text("🎊 LEVEL UP!", fontSize = 16.sp, color = Color.White)
+                            Text(t("🎊 LEVEL UP!","🎊 TASON NOUSU!"), fontSize = 16.sp, color = Color.White)
                             Text(levelUpTitle, fontSize = 12.sp, color = Color(0xFFCECBF6))
-                            Text("tap to dismiss", fontSize = 10.sp, color = Color(0xFFAFA9EC))
+                            Text(t("tap to dismiss","napauta sulkeaksesi"), fontSize = 10.sp, color = Color(0xFFAFA9EC))
                         }
                     }
                 }
@@ -222,13 +222,13 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                                 else -> "⭐"
                             }
                             val msg = when {
-                                player.currentStreak >= 10 -> "UNSTOPPABLE!"
-                                player.currentStreak >= 5  -> "On a hot streak!"
-                                player.currentStreak >= 3  -> "Keep it up!"
-                                else -> "Win streak!"
+                                player.currentStreak >= 10 -> t("UNSTOPPABLE!","PYSÄYTTÄMÄTÖN!")
+                                player.currentStreak >= 5  -> t("On a hot streak!","Huima putki!")
+                                player.currentStreak >= 3  -> t("Keep it up!","Jatka samaan tapaan!")
+                                else -> t("Win streak!","Voittoputki!")
                             }
                             Text("$emoji $msg", fontSize = 12.sp, color = AppColors.streakText)
-                            Text("🔥 ${player.currentStreak}  Best: ${player.bestStreak}",
+                            Text("🔥 ${player.currentStreak}  ${t("Best","Paras")}: ${player.bestStreak}",
                                 fontSize = 11.sp, color = Color(0xFF888888))
                         }
                     }
@@ -239,12 +239,12 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                     fontSize = 11.sp, color = AppColors.xpSub)
 
                 if (firstGame) {
-                    Text("Select Difficulty:", fontSize = 11.sp, color = Color(0xFF888888))
+                    Text(t("Select Difficulty:","Valitse vaikeustaso:"), fontSize = 11.sp, color = Color(0xFF888888))
                     DifficultySelector(selected = difficulty) { d ->
                         difficulty = d; cards = createCards(d.pairs, theme)
                     }
                     Spacer(Modifier.height(2.dp))
-                    Text("Select Theme:", fontSize = 11.sp, color = Color(0xFF888888))
+                    Text(t("Select Theme:","Valitse teema:"), fontSize = 11.sp, color = Color(0xFF888888))
                     ThemeSelector(selected = theme) { t ->
                         theme = t; cards = createCards(difficulty.pairs, t)
                     }
@@ -267,7 +267,7 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                         }
                         .padding(vertical = 14.dp),
                         contentAlignment = Alignment.Center) {
-                        Text(if (firstGame) "▶  Start Game" else playAgainMsg,
+                        Text(if (firstGame) t("▶  Start Game","▶  Aloita peli") else playAgainMsg,
                             fontSize = 14.sp, color = Color.White)
                     }
                 }
@@ -275,9 +275,9 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                 if (gameStarted) {
                     Row(horizontalArrangement = Arrangement.SpaceEvenly,
                         modifier = Modifier.fillMaxWidth()) {
-                        StatChip("$matches/${difficulty.pairs}", "Matches", AppColors.green)
-                        StatChip("$turns", "Turns", AppColors.purple)
-                        StatChip(ai.skillLabel(), "Skill", AppColors.orange)
+                        StatChip("$matches/${difficulty.pairs}", t("Matches","Parit"), AppColors.green)
+                        StatChip("$turns", t("Turns","Vuorot"), AppColors.purple)
+                        StatChip(ai.skillLabel(), t("Skill","Taito"), AppColors.orange)
                     }
 
                     val timerColor = when {
@@ -345,11 +345,11 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                     Box(modifier = Modifier.fillMaxWidth()
                         .background(Color.White, RoundedCornerShape(12.dp)).padding(10.dp)) {
                         Column {
-                            Text("📊 Skill Meter", fontSize = 12.sp, color = Color(0xFF555555))
+                            Text(t("📊 Skill Meter","📊 Taitomittari"), fontSize = 12.sp, color = Color(0xFF555555))
                             Spacer(Modifier.height(6.dp))
                             Row(modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceEvenly) {
-                                listOf("Easy","Medium","Hard").forEachIndexed { i, label ->
+                                listOf(t("Easy","Helppo"), t("Medium","Keski"), t("Hard","Vaikea")).forEachIndexed { i, label ->
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                         Text(label, fontSize = 10.sp, color = Color(0xFF888888))
                                         Spacer(Modifier.height(3.dp))
@@ -406,10 +406,10 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                             pepperWinCelebration(player.name, score)
                             PlayerRegistry.save()
                         }
-                        Text("🎉 You Win, ${player.name}!", fontSize = 22.sp, color = AppColors.green)
-                        Text("+$xp XP  🔥 Streak: ${player.currentStreak}",
+                        Text(t("🎉 You Win, ${player.name}!","🎉 Voitit, ${player.name}!"), fontSize = 22.sp, color = AppColors.green)
+                        Text("+$xp XP  🔥 ${t("Streak","Putki")}: ${player.currentStreak}",
                             fontSize = 13.sp, color = AppColors.purple)
-                        Text("Score: $score pts", fontSize = 16.sp, color = AppColors.goldText)
+                        Text(t("Score: $score pts","Pisteet: $score p"), fontSize = 16.sp, color = AppColors.goldText)
                         Spacer(Modifier.height(6.dp))
                         GlobalHighScoreBoard()
 
@@ -421,13 +421,13 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                             val newGems = checkNewGems(player, 0)
                             if (newGems.isNotEmpty()) newGemQueue = newGems
                             emmaMessage = "So close! Try again!"
-                            pepperSpeak(t("Time is up ${player.name}! You found $matches pairs. Don't give up, try again!",
-                                "Aika loppui ${player.name}! Löysit $matches paria. Älä anna periksi, yritä uudelleen!"))
+                            pepperSpeak(t("Time is up ${player.name}! You found ${num(matches)} pairs. Don't give up, try again!",
+                                "Aika loppui ${player.name}! Löysit ${num(matches)} paria. Älä anna periksi, yritä uudelleen!"))
                             PlayerRegistry.save()
                         }
-                        Text("⏰ Time's Up, ${player.name}!", fontSize = 22.sp, color = AppColors.orange)
-                        Text("Found $matches/${difficulty.pairs} pairs", fontSize = 13.sp)
-                        Text("+$xp XP  🔥 Streak lost", fontSize = 13.sp, color = AppColors.purple)
+                        Text(t("⏰ Time's Up, ${player.name}!","⏰ Aika loppui, ${player.name}!"), fontSize = 22.sp, color = AppColors.orange)
+                        Text(t("Found $matches/${difficulty.pairs} pairs","Löysit $matches/${difficulty.pairs} paria"), fontSize = 13.sp)
+                        Text(t("+$xp XP  🔥 Streak lost","+$xp XP  🔥 Putki poikki"), fontSize = 13.sp, color = AppColors.purple)
                         Spacer(Modifier.height(6.dp))
                         GlobalHighScoreBoard()
                     }
@@ -447,14 +447,16 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                             .verticalScroll(rememberScrollState()).padding(vertical = 12.dp)
                     ) {
                         Text("👋", fontSize = 56.sp)
-                        Text("Hello, ${player.name}!", fontSize = 24.sp, color = AppColors.orange)
+                        Text(t("Hello, ${player.name}!","Hei, ${player.name}!"), fontSize = 24.sp, color = AppColors.orange)
                         if (player.gamesPlayed > 0) {
-                            Text("Games: ${player.gamesPlayed}  •  Best: ${player.bestScore} pts",
+                            Text(t("Games: ${player.gamesPlayed}  •  Best: ${player.bestScore} pts",
+                                "Pelejä: ${player.gamesPlayed}  •  Paras: ${player.bestScore} p"),
                                 fontSize = 14.sp, color = Color(0xFF555555))
-                            Text("Best streak: 🔥 ${player.bestStreak}",
+                            Text(t("Best streak: 🔥 ${player.bestStreak}","Paras putki: 🔥 ${player.bestStreak}"),
                                 fontSize = 14.sp, color = AppColors.streakText)
                         } else {
-                            Text("Select difficulty and theme\non the left, then press Start!",
+                            Text(t("Select difficulty and theme\non the left, then press Start!",
+                                "Valitse vaikeustaso ja teema\nvasemmalta, sitten paina Aloita!"),
                                 fontSize = 14.sp, color = Color(0xFF888888))
                         }
                         Spacer(Modifier.height(4.dp))
@@ -469,15 +471,15 @@ fun MemoryGameScreen(player: PlayerData, onChangePlayer: () -> Unit) {
                             .verticalScroll(rememberScrollState()).padding(vertical = 12.dp)
                     ) {
                         Text(if (gameWon) "🎉" else "⏰", fontSize = 64.sp)
-                        Text(if (gameWon) "You Win!" else "Time's Up!",
+                        Text(if (gameWon) t("You Win!","Voitit!") else t("Time's Up!","Aika loppui!"),
                             fontSize = 30.sp,
                             color = if (gameWon) AppColors.green else AppColors.orange)
                         if (gameWon) {
-                            Text("Score: $lastScore pts", fontSize = 20.sp, color = AppColors.goldText)
+                            Text(t("Score: $lastScore pts","Pisteet: $lastScore p"), fontSize = 20.sp, color = AppColors.goldText)
                             if (lastScore >= player.bestScore)
-                                Text("🏆 New personal best!", fontSize = 14.sp, color = AppColors.goldText)
+                                Text(t("🏆 New personal best!","🏆 Uusi henkilökohtainen ennätys!"), fontSize = 14.sp, color = AppColors.goldText)
                         } else {
-                            Text("Found $matches/${difficulty.pairs} pairs",
+                            Text(t("Found $matches/${difficulty.pairs} pairs","Löysit $matches/${difficulty.pairs} paria"),
                                 fontSize = 16.sp, color = Color(0xFF555555))
                         }
                         Box(modifier = Modifier

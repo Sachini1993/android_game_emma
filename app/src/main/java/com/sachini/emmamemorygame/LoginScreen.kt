@@ -34,7 +34,7 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
             modifier = Modifier.padding(24.dp).verticalScroll(rememberScrollState())
         ) {
             Text("🧠", fontSize = 56.sp)
-            Text("Pepper Memory Game", fontSize = 26.sp, color = AppColors.orange)
+            Text(t("Pepper Memory Game","Pepper Muistipeli"), fontSize = 26.sp, color = AppColors.orange)
             Spacer(Modifier.height(4.dp))
 
             // Language selector
@@ -58,7 +58,8 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
 
                 // ── 1. New or returning ──────────────────────────────────────
                 LoginStep.ASK_NEW_OR_OLD -> {
-                    Text("Welcome! Are you a new player\nor have you played before?",
+                    Text(t("Welcome! Are you a new player\nor have you played before?",
+                        "Tervetuloa! Oletko uusi pelaaja\nvai oletko pelannut ennen?"),
                         fontSize = 18.sp, color = Color(0xFF555555))
                     Spacer(Modifier.height(8.dp))
                     Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -69,7 +70,7 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text("✨", fontSize = 24.sp)
                                 Spacer(Modifier.height(4.dp))
-                                Text("I am new!", fontSize = 16.sp, color = Color.White)
+                                Text(t("I am new!","Olen uusi!"), fontSize = 16.sp, color = Color.White)
                             }
                         }
                         Box(modifier = Modifier
@@ -81,12 +82,12 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text("👋", fontSize = 24.sp)
                                 Spacer(Modifier.height(4.dp))
-                                Text("I played before!", fontSize = 16.sp, color = Color.White)
+                                Text(t("I played before!","Olen pelannut!"), fontSize = 16.sp, color = Color.White)
                             }
                         }
                     }
                     if (existingPlayers.isEmpty())
-                        Text("No players yet — be the first!",
+                        Text(t("No players yet — be the first!","Ei pelaajia vielä — ole ensimmäinen!"),
                             fontSize = 12.sp, color = Color(0xFF888888))
                     if (PlayerRegistry.allScores().isNotEmpty()) {
                         Spacer(Modifier.height(12.dp))
@@ -96,13 +97,13 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
 
                 // ── 2. Enter new name ────────────────────────────────────────
                 LoginStep.ENTER_NEW_NAME -> {
-                    Text("What is your name?", fontSize = 20.sp, color = AppColors.purple)
-                    Text("Tap the letters below:", fontSize = 13.sp, color = Color(0xFF888888))
+                    Text(t("What is your name?","Mikä on nimesi?"), fontSize = 20.sp, color = AppColors.purple)
+                    Text(t("Tap the letters below:","Napauta kirjaimia alla:"), fontSize = 13.sp, color = Color(0xFF888888))
                     Box(modifier = Modifier.widthIn(min = 280.dp)
                         .background(Color.White, RoundedCornerShape(12.dp)).padding(16.dp),
                         contentAlignment = Alignment.Center) {
                         Text(
-                            if (nameInput.isEmpty()) "Tap letters below..." else nameInput,
+                            if (nameInput.isEmpty()) t("Tap letters below...","Napauta kirjaimia...") else nameInput,
                             fontSize = 22.sp,
                             color = if (nameInput.isEmpty()) Color(0xFFAAAAAA) else AppColors.xpText)
                     }
@@ -131,14 +132,14 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
                             .background(Color(0xFFFFE0CC), RoundedCornerShape(10.dp))
                             .clickable { if (nameInput.isNotEmpty()) nameInput = nameInput.dropLast(1) }
                             .padding(horizontal = 18.dp, vertical = 10.dp)) {
-                            Text("⌫ Delete", fontSize = 14.sp, color = AppColors.orange)
+                            Text(t("⌫ Delete","⌫ Poista"), fontSize = 14.sp, color = AppColors.orange)
                         }
                         if (nameInput.isNotEmpty()) {
                             Box(modifier = Modifier
                                 .background(Color(0xFFFFE0CC), RoundedCornerShape(10.dp))
                                 .clickable { nameInput = "" }
                                 .padding(horizontal = 18.dp, vertical = 10.dp)) {
-                                Text("✕ Clear", fontSize = 14.sp, color = AppColors.orange)
+                                Text(t("✕ Clear","✕ Tyhjennä"), fontSize = 14.sp, color = AppColors.orange)
                             }
                         }
                         if (nameInput.length >= 2) {
@@ -153,11 +154,11 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
                                     step = LoginStep.ONBOARDING
                                 }
                                 .padding(horizontal = 18.dp, vertical = 10.dp)) {
-                                Text("▶ Continue as $nameInput", fontSize = 14.sp, color = Color.White)
+                                Text(t("▶ Continue as $nameInput","▶ Jatka nimellä $nameInput"), fontSize = 14.sp, color = Color.White)
                             }
                         }
                     }
-                    Text("← Back", fontSize = 13.sp, color = Color(0xFF888888),
+                    Text(t("← Back","← Takaisin"), fontSize = 13.sp, color = Color(0xFF888888),
                         modifier = Modifier.clickable {
                             step = LoginStep.ASK_NEW_OR_OLD; nameInput = ""
                         })
@@ -165,8 +166,8 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
 
                 // ── 3. Returning player list ─────────────────────────────────
                 LoginStep.PICK_FROM_LIST -> {
-                    Text("Welcome back! Who are you?", fontSize = 20.sp, color = AppColors.green)
-                    Text("Tap your name to continue:", fontSize = 13.sp, color = Color(0xFF888888))
+                    Text(t("Welcome back! Who are you?","Tervetuloa takaisin! Kuka olet?"), fontSize = 20.sp, color = AppColors.green)
+                    Text(t("Tap your name to continue:","Napauta nimeäsi jatkaaksesi:"), fontSize = 13.sp, color = Color(0xFF888888))
                     existingPlayers.forEach { player ->
                         val level = currentLevel(player.totalXP)
                         var confirmDelete by remember(player.name) { mutableStateOf(false) }
@@ -184,16 +185,16 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
                                     onPlayerSelected(player)
                                 }) {
                                     Text(player.name, fontSize = 18.sp, color = AppColors.purple)
-                                    Text("Lv.${level.level} ${level.title}  •  ${player.gamesPlayed} games",
+                                    Text("Lv.${level.level} ${level.title}  •  ${player.gamesPlayed} ${t("games","peliä")}",
                                         fontSize = 11.sp, color = Color(0xFF888888))
-                                    Text("💎 ${player.gemCount()}/${ALL_GEMS.size} gems",
+                                    Text("💎 ${player.gemCount()}/${ALL_GEMS.size} ${t("gems","jalokiveä")}",
                                         fontSize = 11.sp, color = AppColors.purple)
                                 }
                                 Column(horizontalAlignment = Alignment.End,
                                     verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                    Text("Best: ${player.bestScore} pts",
+                                    Text(t("Best: ${player.bestScore} pts","Paras: ${player.bestScore} p"),
                                         fontSize = 13.sp, color = AppColors.goldText)
-                                    Text("🔥 ${player.bestStreak} streak",
+                                    Text("🔥 ${player.bestStreak} ${t("streak","putki")}",
                                         fontSize = 11.sp, color = AppColors.streakText)
                                     Spacer(Modifier.height(4.dp))
                                     if (confirmDelete) {
@@ -205,14 +206,14 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
                                                     confirmDelete = false
                                                 }
                                                 .padding(horizontal = 10.dp, vertical = 5.dp)) {
-                                                Text("Yes, delete", fontSize = 11.sp, color = Color(0xFFD32F2F),
+                                                Text(t("Yes, delete","Kyllä, poista"), fontSize = 11.sp, color = Color(0xFFD32F2F),
                                                     fontWeight = FontWeight.Bold)
                                             }
                                             Box(modifier = Modifier
                                                 .background(Color(0xFFEEEEEE), RoundedCornerShape(8.dp))
                                                 .clickable { confirmDelete = false }
                                                 .padding(horizontal = 10.dp, vertical = 5.dp)) {
-                                                Text("Cancel", fontSize = 11.sp, color = Color(0xFF555555))
+                                                Text(t("Cancel","Peruuta"), fontSize = 11.sp, color = Color(0xFF555555))
                                             }
                                         }
                                     } else {
@@ -220,7 +221,7 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
                                             .background(Color(0xFFFFEBEE), RoundedCornerShape(8.dp))
                                             .clickable { confirmDelete = true }
                                             .padding(horizontal = 10.dp, vertical = 5.dp)) {
-                                            Text("🗑 Remove", fontSize = 11.sp, color = Color(0xFFD32F2F))
+                                            Text(t("🗑 Remove","🗑 Poista"), fontSize = 11.sp, color = Color(0xFFD32F2F))
                                         }
                                     }
                                 }
@@ -228,9 +229,9 @@ fun PlayerLoginScreen(onPlayerSelected: (PlayerData) -> Unit) {
                         }
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
-                        Text("← Back", fontSize = 13.sp, color = Color(0xFF888888),
+                        Text(t("← Back","← Takaisin"), fontSize = 13.sp, color = Color(0xFF888888),
                             modifier = Modifier.clickable { step = LoginStep.ASK_NEW_OR_OLD })
-                        Text("+ New player", fontSize = 13.sp, color = AppColors.purple,
+                        Text(t("+ New player","+ Uusi pelaaja"), fontSize = 13.sp, color = AppColors.purple,
                             modifier = Modifier.clickable {
                                 step = LoginStep.ENTER_NEW_NAME; nameInput = ""
                             })
@@ -261,96 +262,122 @@ fun OnboardingScreen(playerName: String, onAccept: () -> Unit) {
     var page by remember { mutableStateOf(0) }
     var accepted by remember { mutableStateOf(false) }
 
-    val pages = listOf(
-        OnboardPage(
-            emoji = "🧠",
-            title = "Welcome, $playerName!",
-            color = AppColors.purple,
-            content = "Pepper Memory Game trains your brain with a fun card-matching challenge!\n\n" +
-                "You will flip cards to find matching pairs — the faster you match, the more points you earn.\n\n" +
-                "Pepper the robot will cheer you on and keep you company!"
-        ),
-        OnboardPage(
-            emoji = "🃏",
-            title = "How to Play",
-            color = AppColors.orange,
-            content = "① Tap a card to flip it face-up.\n\n" +
-                "② Tap a second card — if they match, both stay open! ✅\n\n" +
-                "③ If they don't match, both flip back. Try to remember!\n\n" +
-                "④ Match ALL pairs before the 2-minute timer runs out.\n\n" +
-                "💡 Tip: Go fast — you earn more XP with fewer turns!"
-        ),
-        OnboardPage(
-            emoji = "⚡",
-            title = "Difficulty Levels",
-            color = Color(0xFF1D9E75),
-            content = "🟢 Easy — 3 × 4 grid (6 pairs). Great for beginners.\n\n" +
-                "🟡 Medium — 4 × 4 grid (8 pairs). A good challenge.\n\n" +
-                "🔴 Hard — 4 × 5 grid (10 pairs). Maximum brain workout!\n\n" +
-                "The AI watches your performance and suggests the best difficulty for you.\n\n" +
-                "🏆 Play Hard mode consistently to unlock the highest gems and XP rewards!"
-        ),
-        OnboardPage(
-            emoji = "⭐",
-            title = "XP & Levels",
-            color = AppColors.purple,
-            content = "Every game earns you XP (experience points):\n\n" +
-                "• Match all pairs → big XP bonus\n" +
-                "• Fewer turns → XP multiplier\n" +
-                "• Time remaining → speed bonus\n" +
-                "• Win streaks → streak bonus 🔥\n\n" +
-                "Level up from Memory Rookie → Card Flipper → Pattern Seeker → … → Memory Legend (Lv.10)!\n\n" +
-                "Higher levels unlock harder challenges."
-        ),
-        OnboardPage(
-            emoji = "💎",
-            title = "Gems & Achievements",
-            color = Color(0xFF0C447C),
-            content = "Collect special gems by reaching milestones:\n\n" +
-                "💎 Ice Diamond — Play your first game\n" +
-                "🔮 Crystal Orb — Reach Level 3\n" +
-                "🔥 Fire Gem — Win 3 games in a row\n" +
-                "🏆 Gold Cup — Get your first high score\n" +
-                "💫 Star Burst — Reach Level 5\n" +
-                "⚡ Lightning — Win 5 in a row\n" +
-                "🌟 Golden Star — Win with 60+ seconds left\n" +
-                "🌈 Rainbow — Play all 5 themes\n" +
-                "🧠 Brain Trainer — Play 10 games\n" +
-                "👑 Royal Crown — Reach Level 10 Legend!\n\n" +
-                "Tap any gem on the shelf to see its description."
-        ),
-        OnboardPage(
-            emoji = "🤸",
-            title = "Activity Breaks",
-            color = Color(0xFF6B3D9A),
-            content = "If Pepper notices you haven't tapped for a few seconds, she will suggest a fun movement break!\n\n" +
-                "The break screen shows exercises like stretching, jumping jacks, or dancing.\n\n" +
-                "Pepper will guide you through each step.\n\n" +
-                "After the break, the game resumes automatically — OR tap ❌ Quit Game to exit.\n\n" +
-                "Movement breaks help you focus and re-energise your brain! 🧠⚡"
-        ),
-        OnboardPage(
-            emoji = "⚙️",
-            title = "Settings & Sound",
-            color = AppColors.orange,
-            content = "Tap the ⚙️ gear icon in the top-left of the game screen to open Settings:\n\n" +
-                "🎵 Music Volume — slide to make the background music louder or softer.\n\n" +
-                "🔊 Voice Volume — controls how loud Pepper speaks.\n\n" +
-                "❌ Quit Game — stops the music and exits to the home screen.\n\n" +
-                "You can also tap 🔊/🔇 to quickly mute/unmute the music during the game."
-        ),
-        OnboardPage(
-            emoji = "📋",
-            title = "Terms & Conditions",
-            color = Color(0xFF555555),
-            content = "Please read and accept before playing:\n\n" +
-                "• This app is designed for educational and recreational use.\n\n" +
-                "• Player names and scores are saved locally on this device only.\n\n" +
-                "• No personal data is sent to any server or third party.\n\n" +
-                "• Physical activity suggestions during breaks are gentle and optional. Stop any exercise if you feel discomfort.\n\n" +
-                "• Pepper robot interactions require a connected Pepper robot. The app works without one.\n\n" +
-                "• By tapping \"I Accept & Start Playing\" you agree to these terms."
-        )
+    val pages = if (appLanguage == Language.FINNISH) listOf(
+        OnboardPage("🧠", "Tervetuloa, $playerName!", AppColors.purple,
+            "Pepper Muistipeli harjoittaa aivojasi hauskalla korttien yhdistämishaasteella!\n\n" +
+            "Käännät kortteja löytääksesi pareja — mitä nopeammin löydät, sitä enemmän pisteitä saat.\n\n" +
+            "Pepper-robotti kannustaa sinua ja pitää sinulle seuraa!"),
+        OnboardPage("🃏", "Kuinka pelata", AppColors.orange,
+            "① Napauta korttia kääntääksesi se ylöspäin.\n\n" +
+            "② Napauta toista korttia — jos ne vastaavat, molemmat jäävät auki! ✅\n\n" +
+            "③ Jos ne eivät vastaa, molemmat kääntyvät takaisin. Yritä muistaa!\n\n" +
+            "④ Yhdistä KAIKKI parit ennen kuin 2 minuutin ajastin loppuu.\n\n" +
+            "💡 Vinkki: Mene nopeasti — ansaitset enemmän XP:tä vähemmillä vuoroilla!"),
+        OnboardPage("⚡", "Vaikeustasot", Color(0xFF1D9E75),
+            "🟢 Helppo — 3 × 4 ruudukko (6 paria). Loistava aloittelijoille.\n\n" +
+            "🟡 Keski — 4 × 4 ruudukko (8 paria). Hyvä haaste.\n\n" +
+            "🔴 Vaikea — 4 × 5 ruudukko (10 paria). Maksimaalinen aivotreeni!\n\n" +
+            "Tekoäly seuraa suoritustasi ja ehdottaa parasta vaikeustasoa sinulle.\n\n" +
+            "🏆 Pelaa Vaikea-tilaa johdonmukaisesti avataksesi korkeimmat jalokivet ja XP-palkkiot!"),
+        OnboardPage("⭐", "XP ja tasot", AppColors.purple,
+            "Jokainen peli tuo sinulle XP:tä (kokemuspisteitä):\n\n" +
+            "• Kaikkien parien yhdistäminen → iso XP-bonus\n" +
+            "• Vähemmän vuoroja → XP-kerroin\n" +
+            "• Jäljellä oleva aika → nopeusbonus\n" +
+            "• Voittoputket → putkibonus 🔥\n\n" +
+            "Nouse tasolta Muistialoittelija → Korttien kääntäjä → … → Muistilegenda (Taso 10)!\n\n" +
+            "Korkeammat tasot avaavat vaikeampia haasteita."),
+        OnboardPage("💎", "Jalokivet ja saavutukset", Color(0xFF0C447C),
+            "Kerää erikoisjalokiviä saavuttamalla virstanpylväitä:\n\n" +
+            "💎 Jäätimantti — Pelaa ensimmäinen pelisi\n" +
+            "🔮 Kristallipallo — Saavuta taso 3\n" +
+            "🔥 Tulijaspe — Voita 3 peliä putkeen\n" +
+            "🏆 Kultapiala — Saa ensimmäinen ennätyksesi\n" +
+            "💫 Tähtipurkaus — Saavuta taso 5\n" +
+            "⚡ Salama — Voita 5 putkeen\n" +
+            "🌟 Kultainen tähti — Voita yli 60 sekuntia jäljellä\n" +
+            "🌈 Sateenkaari — Pelaa kaikki 5 teemaa\n" +
+            "🧠 Aivoharjoittelija — Pelaa 10 peliä\n" +
+            "👑 Kuninkaallinen kruunu — Saavuta taso 10 Legenda!\n\n" +
+            "Napauta mitä tahansa jalokiveä hyllyllä nähdäksesi sen kuvauksen."),
+        OnboardPage("🤸", "Liikuntatauot", Color(0xFF6B3D9A),
+            "Jos Pepper huomaa, ettet ole napauttanut muutamaan sekuntiin, hän ehdottaa hauskaa liikuntataukoa!\n\n" +
+            "Taukonäytöllä näkyy harjoituksia kuten venyttely, hyppelyharjoitukset tai tanssi.\n\n" +
+            "Pepper ohjaa sinut jokaisen vaiheen läpi.\n\n" +
+            "Tauon jälkeen peli jatkuu automaattisesti — TAI napauta ❌ Lopeta peli poistuaksesi.\n\n" +
+            "Liikuntatauot auttavat sinua keskittymään ja elvyttämään aivojasi! 🧠⚡"),
+        OnboardPage("⚙️", "Asetukset ja ääni", AppColors.orange,
+            "Napauta ⚙️-kuvaketta pelisivun vasemmassa yläkulmassa avataksesi Asetukset:\n\n" +
+            "🎵 Musiikin äänenvoimakkuus — liu'uta tehdäksesi taustamusiikin kovemmaksi tai hiljaisemmaksi.\n\n" +
+            "🔊 Puheen äänenvoimakkuus — säätelee Pepperin puheäänen voimakkuutta.\n\n" +
+            "❌ Lopeta peli — pysäyttää musiikin ja poistuu aloitusnäyttöön.\n\n" +
+            "Voit myös napauttaa 🔊/🔇 mykistääksesi/poistaaksesi mykistyksen nopeasti pelin aikana."),
+        OnboardPage("📋", "Käyttöehdot", Color(0xFF555555),
+            "Lue ja hyväksy ennen pelaamista:\n\n" +
+            "• Tämä sovellus on suunniteltu opetukselliseen ja virkistyskäyttöön.\n\n" +
+            "• Pelaajanimet ja pisteet tallennetaan vain paikallisesti tälle laitteelle.\n\n" +
+            "• Henkilötietoja ei lähetetä palvelimille tai kolmansille osapuolille.\n\n" +
+            "• Taukojen aikana ehdotetut liikuntaharjoitukset ovat kevyitä ja vapaaehtoisia. Lopeta harjoittelu, jos tunnet epämukavuutta.\n\n" +
+            "• Pepper-robotin vuorovaikutus vaatii yhdistetyn Pepper-robotin. Sovellus toimii ilman sitä.\n\n" +
+            "• Napauttamalla \"Hyväksyn ja aloitan pelaamisen\" hyväksyt nämä ehdot.")
+    ) else listOf(
+        OnboardPage("🧠", "Welcome, $playerName!", AppColors.purple,
+            "Pepper Memory Game trains your brain with a fun card-matching challenge!\n\n" +
+            "You will flip cards to find matching pairs — the faster you match, the more points you earn.\n\n" +
+            "Pepper the robot will cheer you on and keep you company!"),
+        OnboardPage("🃏", "How to Play", AppColors.orange,
+            "① Tap a card to flip it face-up.\n\n" +
+            "② Tap a second card — if they match, both stay open! ✅\n\n" +
+            "③ If they don't match, both flip back. Try to remember!\n\n" +
+            "④ Match ALL pairs before the 2-minute timer runs out.\n\n" +
+            "💡 Tip: Go fast — you earn more XP with fewer turns!"),
+        OnboardPage("⚡", "Difficulty Levels", Color(0xFF1D9E75),
+            "🟢 Easy — 3 × 4 grid (6 pairs). Great for beginners.\n\n" +
+            "🟡 Medium — 4 × 4 grid (8 pairs). A good challenge.\n\n" +
+            "🔴 Hard — 4 × 5 grid (10 pairs). Maximum brain workout!\n\n" +
+            "The AI watches your performance and suggests the best difficulty for you.\n\n" +
+            "🏆 Play Hard mode consistently to unlock the highest gems and XP rewards!"),
+        OnboardPage("⭐", "XP & Levels", AppColors.purple,
+            "Every game earns you XP (experience points):\n\n" +
+            "• Match all pairs → big XP bonus\n" +
+            "• Fewer turns → XP multiplier\n" +
+            "• Time remaining → speed bonus\n" +
+            "• Win streaks → streak bonus 🔥\n\n" +
+            "Level up from Memory Rookie → Card Flipper → Pattern Seeker → … → Memory Legend (Lv.10)!\n\n" +
+            "Higher levels unlock harder challenges."),
+        OnboardPage("💎", "Gems & Achievements", Color(0xFF0C447C),
+            "Collect special gems by reaching milestones:\n\n" +
+            "💎 Ice Diamond — Play your first game\n" +
+            "🔮 Crystal Orb — Reach Level 3\n" +
+            "🔥 Fire Gem — Win 3 games in a row\n" +
+            "🏆 Gold Cup — Get your first high score\n" +
+            "💫 Star Burst — Reach Level 5\n" +
+            "⚡ Lightning — Win 5 in a row\n" +
+            "🌟 Golden Star — Win with 60+ seconds left\n" +
+            "🌈 Rainbow — Play all 5 themes\n" +
+            "🧠 Brain Trainer — Play 10 games\n" +
+            "👑 Royal Crown — Reach Level 10 Legend!\n\n" +
+            "Tap any gem on the shelf to see its description."),
+        OnboardPage("🤸", "Activity Breaks", Color(0xFF6B3D9A),
+            "If Pepper notices you haven't tapped for a few seconds, she will suggest a fun movement break!\n\n" +
+            "The break screen shows exercises like stretching, jumping jacks, or dancing.\n\n" +
+            "Pepper will guide you through each step.\n\n" +
+            "After the break, the game resumes automatically — OR tap ❌ Quit Game to exit.\n\n" +
+            "Movement breaks help you focus and re-energise your brain! 🧠⚡"),
+        OnboardPage("⚙️", "Settings & Sound", AppColors.orange,
+            "Tap the ⚙️ gear icon in the top-left of the game screen to open Settings:\n\n" +
+            "🎵 Music Volume — slide to make the background music louder or softer.\n\n" +
+            "🔊 Voice Volume — controls how loud Pepper speaks.\n\n" +
+            "❌ Quit Game — stops the music and exits to the home screen.\n\n" +
+            "You can also tap 🔊/🔇 to quickly mute/unmute the music during the game."),
+        OnboardPage("📋", "Terms & Conditions", Color(0xFF555555),
+            "Please read and accept before playing:\n\n" +
+            "• This app is designed for educational and recreational use.\n\n" +
+            "• Player names and scores are saved locally on this device only.\n\n" +
+            "• No personal data is sent to any server or third party.\n\n" +
+            "• Physical activity suggestions during breaks are gentle and optional. Stop any exercise if you feel discomfort.\n\n" +
+            "• Pepper robot interactions require a connected Pepper robot. The app works without one.\n\n" +
+            "• By tapping \"I Accept & Start Playing\" you agree to these terms.")
     )
 
     val currentPage = pages[page]
@@ -407,7 +434,8 @@ fun OnboardingScreen(playerName: String, onAccept: () -> Unit) {
                         Row(horizontalArrangement = Arrangement.spacedBy(10.dp),
                             verticalAlignment = Alignment.CenterVertically) {
                             Text(if (accepted) "✅" else "☐", fontSize = 22.sp)
-                            Text("I have read and accept the Terms & Conditions",
+                            Text(t("I have read and accept the Terms & Conditions",
+                                "Olen lukenut ja hyväksyn käyttöehdot"),
                                 fontSize = 13.sp, color = Color(0xFF444444),
                                 fontWeight = FontWeight.Bold)
                         }
@@ -429,7 +457,7 @@ fun OnboardingScreen(playerName: String, onAccept: () -> Unit) {
                         .padding(vertical = 14.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("← Back", fontSize = 15.sp, color = Color(0xFF555555))
+                    Text(t("← Back","← Takaisin"), fontSize = 15.sp, color = Color(0xFF555555))
                 }
             }
 
@@ -441,7 +469,7 @@ fun OnboardingScreen(playerName: String, onAccept: () -> Unit) {
                         .padding(vertical = 14.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Next →", fontSize = 15.sp, color = Color.White, fontWeight = FontWeight.Bold)
+                    Text(t("Next →","Seuraava →"), fontSize = 15.sp, color = Color.White, fontWeight = FontWeight.Bold)
                 }
             } else {
                 Box(
@@ -454,7 +482,7 @@ fun OnboardingScreen(playerName: String, onAccept: () -> Unit) {
                         .padding(vertical = 14.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("✅  I Accept & Start Playing",
+                    Text(t("✅  I Accept & Start Playing","✅  Hyväksyn ja aloitan pelaamisen"),
                         fontSize = 15.sp, color = Color.White, fontWeight = FontWeight.Bold)
                 }
             }

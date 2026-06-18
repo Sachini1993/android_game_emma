@@ -17,6 +17,24 @@ var appLanguage: Language = Language.ENGLISH
 /** Returns Finnish text when Finnish is selected, English otherwise. */
 fun t(en: String, fi: String): String = if (appLanguage == Language.FINNISH) fi else en
 
+/** Converts a number to spoken words so Pepper pronounces it correctly in the chosen language. */
+fun num(n: Int): String {
+    val fiWords = mapOf(0 to "nolla",1 to "yksi",2 to "kaksi",3 to "kolme",4 to "neljä",
+        5 to "viisi",6 to "kuusi",7 to "seitsemän",8 to "kahdeksan",9 to "yhdeksän",
+        10 to "kymmenen",11 to "yksitoista",12 to "kaksitoista",13 to "kolmetoista",
+        14 to "neljätoista",15 to "viisitoista",16 to "kuusitoista",17 to "seitsemäntoista",
+        18 to "kahdeksantoista",19 to "yhdeksäntoista",20 to "kaksikymmentä")
+    val enWords = mapOf(0 to "zero",1 to "one",2 to "two",3 to "three",4 to "four",
+        5 to "five",6 to "six",7 to "seven",8 to "eight",9 to "nine",
+        10 to "ten",11 to "eleven",12 to "twelve",13 to "thirteen",14 to "fourteen",
+        15 to "fifteen",16 to "sixteen",17 to "seventeen",18 to "eighteen",
+        19 to "nineteen",20 to "twenty")
+    return if (appLanguage == Language.FINNISH)
+        fiWords[n] ?: n.toString()
+    else
+        enWords[n] ?: n.toString()
+}
+
 fun pepperSpeak(text: String) {
     val context = MainActivity.robotContext ?: return
     if (MainActivity.isSpeaking) return
@@ -94,9 +112,9 @@ fun pepperWinCelebration(playerName: String, score: Int) {
             SoundManager.playWinFanfare()
 
             val speechText = if (appLanguage == Language.FINNISH)
-                "${PEPPER_WIN_SPEECHES_FI.random()} $playerName, sait $score pistettä!"
+                "${PEPPER_WIN_SPEECHES_FI.random()} $playerName, sait ${num(score)} pistettä!"
             else
-                "${PEPPER_WIN_SPEECHES.random()} $playerName, you scored $score points!"
+                "${PEPPER_WIN_SPEECHES.random()} $playerName, you scored ${num(score)} points!"
             val sayFuture: Future<Void> = SayBuilder.with(context)
                 .withText(speechText).build().async().run()
 
